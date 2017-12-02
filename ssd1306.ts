@@ -1,5 +1,5 @@
 //% icon="\uf26c"
-//% color="255" weight="90"
+//% color="255" weight=89
 namespace OLED {
 
     /**
