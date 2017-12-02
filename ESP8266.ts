@@ -23,6 +23,7 @@ enum OnOff {
  */
 
 //% color=#0fbc11 icon="\uf121"
+//% weight=5
 namespace ESP8266 {
 
     let crashSensorPin: DigitalPin;
