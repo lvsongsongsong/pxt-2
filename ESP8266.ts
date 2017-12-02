@@ -22,7 +22,7 @@ enum OnOff {
  * Custom blocks
  */
 
-//% color=#0fbc11 icon="\uf121" weight=90
+//% color=#0fbc11 icon="\uf09e" weight=90
 namespace ESP8266 {
 
     let crashSensorPin: DigitalPin;
