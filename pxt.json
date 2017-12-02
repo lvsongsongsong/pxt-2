@@ -1,5 +1,5 @@
 {
-    "name": "SSD1306_OLEDele",
+    "name": "ESP8266",
     "version": "1.0.0",
     "description": "ESP8266iot package for SSD1306 OLED controller",
     "license": "MIT",
