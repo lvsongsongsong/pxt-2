@@ -1,105 +1,130 @@
 
 /**
  * Use this file to define custom functions and blocks.
- * Read more at https://pxt.microbit.org/blocks/custom
+ * Read more at https://makecode.microbit.org
  */
 
 
-enum ADKeys {
-    A = 1,
-    B = 2,
-    C = 3,
-    D = 4,
-    E = 5
-}
-
-enum OnOff {
-    Off = 0,
-    On = 1
-}
 
 /**
  * Custom blocks
  */
-
-//% color=#0fbc11 icon="\uf1eb" weight=90
-namespace ESP8266 {
-
-    let crashSensorPin: DigitalPin;
-    /**
-     Returns the value of the moisture sensor on a scale of 0 to 100.
-     */
-    //% blockId=octopus_moisture weight=10 blockGap=22
-    //% block="value of moisture sensor at pin %p"
-    export function MoistureSensor(p: AnalogPin): number {
-        return pins.map(pins.analogReadPin(p), 0, 950, 0, 100);
-    }
-    /**
-     Toggles an LED on or off.
-     */
-    //% blockId=octopus_led weight=100 blockGap=30
-    //% block="toggle LED at pin %p | %state"
-    export function LED(p: DigitalPin, state: OnOff): void {
-        pins.digitalWritePin(p, state);
-    }
+//% weight=10 color=#0fbc11 icon="\uf0ee"
+namespace ESP8266_IoT {
+    let tobesendstring = ""
 
     /**
-   Checks if the specified key on the ADkeyboard is pressed.
+     * TODO: describe your function here
+     * @param wifiRX describe parameter here, eg: SerialPin.P2
+     * @param wifiTX describe parameter here, eg: SerialPin.P8
      */
-
-    //% blockId=octopus_adkeyboard weight=90 blockGap=30
-    //% block="key %k | is pressed on ADKeyboard at pin %p"
-    export function ADKeyboard(k: ADKeys, p: AnalogPin): boolean {
-        let a: number = pins.analogReadPin(p);
-        if (a < 10 && k == 1) {
-            return true;
-        } else if (a >= 40 && a <= 60 && k == 2) {
-            return true;
-        } else if (a >= 80 && a <= 110 && k == 3) {
-            return true;
-        } else if (a >= 130 && a <= 150 && k == 4) {
-            return true;
-        } else if (a >= 530 && a <= 560 && k == 5) {
-            return true;
-        } else return false;
+    //% weight=100
+    //% blockId="wifi_init" block="set wifi RX %wifiRX| TX %wifiTX|at baud rate 9600"
+    export function initwifi(wifiRX: SerialPin, wifiTX: SerialPin): void {
+        serial.redirect(
+            wifiRX,
+            wifiTX,
+            BaudRate.BaudRate9600
+        )
+        basic.pause(10)
+        serial.writeLine("AT+CWMODE=1")
+        basic.pause(5000)
+        serial.writeLine("AT+RST")
+        basic.pause(5000)
+        // Add code here
     }
 
     /**
-   Checks whether the motion sensor is currently detecting any motion.
+     * TODO: describe your function here
+     * @param ssid describe parameter here, eg: "your ssid"
+     * @param key describe parameter here, eg: "your key"
      */
-
-    //% blockId=octopus_pir weight=80 blockGap=30
-    //% block="motion detector at pin %p | detects motion"
-    export function PIR(p: DigitalPin): boolean {
-        let a: number = pins.digitalReadPin(p);
-        if (a == 1) {
-            return true;
-        } else return false;
+    //% weight=99
+    //% blockId="wifi_connect" block="connectwifi SSDI: %ssid| KEY: %key"
+    export function connectwifi(ssid: string, key: string): void {
+        // Add code here
+        let text = "AT+CWJAP=\""
+                 + ssid
+                 + "\",\""
+                 + key
+                 + "\""
+        serial.writeLine(text)
+        basic.pause(6000)
     }
 
     /**
-   Checks whether the crash sensor is currently pressed.
+     * TODO: describe your function here
      */
-
-    //% blockId=octopus_crash weight=70 blockGap=30
-    //% block="crash sensor pressed"
-    export function crashSensor(): boolean {
-        let a: number = pins.digitalReadPin(crashSensorPin);
-        if (a == 0) {
-            return true;
-        } else return false;
+    //% weight=98
+    //% blockId="TCP_connect" block="connect thingspeak"
+    export function connectthingspeak(): void {
+        // Add code here
+        let text = "AT+CIPSTART=\"TCP\",\"api.thingspeak.com\",80"
+        serial.writeLine(text)
+        basic.pause(6000)
     }
-
 
     /**
-IMPORTANT: Sets up the motion sensor.
+     * TODO: describe your function here
+     * @param write_api_key describe parameter here, eg: "your write api key"
+     * @param n1 describe parameter here, eg: 0
+     * @param n2 describe parameter here, eg: 0
+     * @param n3 describe parameter here, eg: 0
+     * @param n4 describe parameter here, eg: 0
+     * @param n5 describe parameter here, eg: 0
+     * @param n6 describe parameter here, eg: 0
+     * @param n7 describe parameter here, eg: 0
+     * @param n8 describe parameter here, eg: 0
      */
-
-
-    //% blockId=octopus_crashsetup weight=75 blockGap=10
-    //% block="Setup crash sensor at pin %p"
-    export function crashSensorSetup(p: DigitalPin): void {
-        crashSensorPin = p;
-        pins.setPull(p, PinPullMode.PullUp)
+    //% weight=97
+    //% blockId="send_text" block="set to be send data: Write API Key= %write_api_key|field1= %n1|field2= %n2|field3= %n3|field4= %n4|field5= %n5|field6= %n6|field7= %n7|field8= %n8"
+    export function tosendtext(write_api_key: string,
+                                n1: number, 
+                                n2: number, 
+                                n3: number, 
+                                n4: number, 
+                                n5: number, 
+                                n6: number, 
+                                n7: number, 
+                                n8: number ): void {
+        let text=""   
+        text = "GET /update?key="
+            + write_api_key
+            + "&field1="
+            + n1
+            + "&field2="
+            + n2
+            + "&field3="
+            + n3
+            + "&field4="
+            + n4  
+            + "&field5="
+            + n5
+            + "&field6="
+            + n6
+            + "&field7="
+            + n7
+            + "&field8="
+            + n8  
+        tobesendstring = text              
+        // Add code here
     }
+
+    /**
+     * TODO: describe your function here
+     */
+    //% weight=96
+    //% blockId=senddata block="send data to thingspeak"
+    export function senddata(): void {
+        let text = ""
+        text = "AT+CIPSEND=" 
+            + (tobesendstring.length + 2)
+        serial.writeLine(text)
+        basic.pause(3000)
+        serial.writeLine(tobesendstring)
+        basic.pause(6000)
+        // Add code here
+
+    }
+
 }
