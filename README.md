@@ -1,3 +1,14 @@
+# ESP8266 IoT Package
+
+## init wifi
+...
+## connect wifi
+...
+## connect thingspeak
+...
+## send data to thingspeak
+
+
 # SSD1306 OLED PXT Package [![Build Status](https://travis-ci.org/Tinkertanker/pxt-ssd1306-microbit.svg?branch=master)](https://travis-ci.org/Tinkertanker/pxt-ssd1306-microbit)
 
 This is the PXT Package for SSD1306 OLED controller, based on the Adafruit Arduino library available [here](https://github.com/adafruit/Adafruit_SSD1306).
