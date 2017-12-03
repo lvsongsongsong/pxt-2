@@ -7,6 +7,8 @@
 ## connect thingspeak
 ...
 ## send data to thingspeak
+...
+
 
 
 # SSD1306 OLED PXT Package [![Build Status](https://travis-ci.org/Tinkertanker/pxt-ssd1306-microbit.svg?branch=master)](https://travis-ci.org/Tinkertanker/pxt-ssd1306-microbit)
