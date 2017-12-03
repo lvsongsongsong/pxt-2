@@ -1,7 +1,7 @@
 {
-    "name": "ESP8266",
+    "name": "ESP8266_IoT",
     "version": "1.0.0",
-    "description": "ESP8266iot package for SSD1306 OLED controller",
+    "description": "ESP8266 IoT package by ELECFREAKS and ClassRoom",
     "license": "MIT",
     "dependencies": {
         "core": "*"
