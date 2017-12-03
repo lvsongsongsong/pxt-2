@@ -9,7 +9,8 @@
 /**
  * Custom blocks
  */
-//% weight=10 color=#0fbc11 icon="\uf0ee"
+//% color=#0fbc11 icon="\uf09e" weight=90
+
 namespace ESP8266_IoT {
     let tobesendstring = ""
 
