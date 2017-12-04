@@ -4,10 +4,10 @@
     "description": "ESP8266 IoT package by ELECFREAKS and ClassRoom",
     "license": "MIT",
     "dependencies": {
-        "core": "*"
+        "core": "*",
+        "neopixel": "github:microsoft/pxt-neopixel#v0.3.10"
     },
     "files": [
-        "neopixel": "github:microsoft/pxt-neopixel#v0.3.10",
         "README.md",
         "ssd1306.ts",
         "SSD1306_OLED.cpp",
